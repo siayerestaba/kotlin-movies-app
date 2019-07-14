@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
+import com.iliaberlana.movies.R
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int): View =
     LayoutInflater.from(context).inflate(layoutRes, this, false)
@@ -23,6 +24,7 @@ fun ImageView.loadImage(path: String?) {
         Glide.with(context)
             .load(path)
             .centerCrop()
+            .placeholder(R.mipmap.poster_placeholder)
             .override(Target.SIZE_ORIGINAL)
             .into(this)
     }
