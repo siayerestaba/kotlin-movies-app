@@ -1,8 +1,11 @@
 package com.iliaberlana.movies.domain.entities
 
-class Movie (
-    id: Int,
-    name: String,
-    image: String,
-    rating: Number
+data class Movie (
+    val id: Int,
+    val name: String,
+    val image: String,
+    val rating: Number
 )
+{
+    override fun toString(): String = "MOVIE {ID: $id, Name: $name, Image: $image, rating: $rating}"
+}
