@@ -5,9 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieDBClient {
-    @GET("/tv/popular")
+    @GET("/3/tv/popular")
     suspend fun getMoviesFromDB(
-        @Query("apikey") apikey: String,
+        @Query("api_key") apikey: String,
         @Query("page") page: Int
     ): ResponseMovieDB
 

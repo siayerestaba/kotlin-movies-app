@@ -1,8 +1,11 @@
 package com.iliaberlana.movies.framework.moviebd.model
 
-data class MovieDB(
+data class MovieDB (
     val id: Int?,
     val name: String?,
-    val posterPath: String?,
-    val voteAverage: Number?
+    val poster_path: String? /*,
+    val vote_average: Number*/
 )
+{
+    override fun toString(): String = "MovieDB {ID: $id, Name: $name, posterPath: $poster_path, voteAverage: }"
+}

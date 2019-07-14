@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MovieDBClientService {
-    private val URL_BASE = "https://api.themoviedb.org/3"
+    private val URL_BASE = "https://api.themoviedb.org"
     private val API_KEY = "5d967c7c335764f39b1efbe9c5de9760"
 
     private val movieDBClient: MovieDBClient
@@ -18,7 +18,6 @@ class MovieDBClientService {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val client = OkHttpClient.Builder()
-            /*.connectTimeout(1, TimeUnit.MINUTES)*/
             .addInterceptor(interceptor) // TODO Borrar producción
             .build()
 
@@ -36,7 +35,7 @@ class MovieDBClientService {
             val reponseMovieDB = movieDBClient.getMoviesFromDB(API_KEY, page)
             return reponseMovieDB.results?: emptyList()
         } catch (error : Error) {
-            throw DomainError.NoInternetConnectionException()
+            throw DomainError.NoInternetConnectionException
         }
     }
 }
