@@ -7,5 +7,5 @@ data class Movie (
     val rating: Number
 )
 {
-    override fun toString(): String = "MOVIE {ID: $id, Name: $name, Image: $image, rating: $rating}"
+    override fun toString(): String = "Movie {ID: $id, Name: $name, Image: $image, rating: $rating}"
 }

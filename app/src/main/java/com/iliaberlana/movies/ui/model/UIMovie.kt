@@ -6,5 +6,5 @@ data class UIMovie(
     val rating: Number
 )
 {
-    override fun toString(): String = "UIMOVIE {Name: $name, Image: $image, rating: $rating}"
+    override fun toString(): String = "UIMovie {Name: $name, Image: $image, rating: $rating}"
 }
