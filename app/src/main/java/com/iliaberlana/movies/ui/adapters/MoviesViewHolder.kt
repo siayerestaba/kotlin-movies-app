@@ -14,7 +14,6 @@ class MoviesViewHolder(
     fun bind(movie: UIMovie) {
         containerView.movie_image.loadImage(movie.image)
         containerView.movie_name.text = movie.name
-        // TODO Rating!
-
+        containerView.movie_rating.text = movie.rating.toString()
     }
 }
