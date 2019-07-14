@@ -8,7 +8,7 @@ import org.junit.Test
 class ListMoviesTest {
 
     @Test
-    fun `call MovieRepository when execute ListMovies`() = runBlocking {
+    fun `call MovieRepository when execute ListMovies with same parameters`() = runBlocking {
         val movieRepository = mockk<MovieRepository>(relaxed = true)
         val listMovies = ListMovies(movieRepository)
 

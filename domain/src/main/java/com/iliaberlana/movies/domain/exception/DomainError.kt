@@ -1,5 +1,7 @@
 package com.iliaberlana.movies.domain.exception
 
-abstract class DomainError : Error()
-class NoInternetConnectionException : DomainError()
-class NoMoreMoviesException : DomainError()
+sealed class DomainError: Exception() {
+    class NoInternetConnectionException : DomainError()
+    object NoMoreMoviesException : DomainError()
+    object UnknownException: DomainError()
+}
