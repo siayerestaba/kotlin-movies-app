@@ -6,6 +6,6 @@ interface BaseView {
 
     fun showToastMessage(stringId: Int)
 
-    fun showEmptyCase()
-    fun hideEmptyCase()
+    fun showErrorCase(stringId: Int)
+    fun hideErrorCase()
 }

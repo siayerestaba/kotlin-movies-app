@@ -2,4 +2,7 @@
     <string name="app_name">Movies</string>
 
     <string name="emptyList">Don\'t have movies to show. Please, try again.</string>
+    <string name="noMoreMovieError">Don\'t have more movies to show.</string>
+    <string name="noInternetConectionError">You don\'t have Internet conection.</string>
+
 </resources>
