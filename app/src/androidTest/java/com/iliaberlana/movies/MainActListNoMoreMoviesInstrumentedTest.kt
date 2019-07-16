@@ -9,6 +9,7 @@ import com.iliaberlana.movies.data.MovieRepository
 import com.iliaberlana.movies.ui.MainActivity
 import com.iliaberlana.movies.ui.presenters.MainPresenter
 import com.iliaberlana.movies.usecases.ListMovies
+import org.hamcrest.CoreMatchers
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,10 +17,10 @@ import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.koin.test.AutoCloseKoinTest
+import org.koin.test.KoinTest
 
 @RunWith(AndroidJUnit4::class)
-class MainActListNoMoreMoviesInstrumentedTest: AutoCloseKoinTest() {
+class MainActListNoMoreMoviesInstrumentedTest: KoinTest {
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
@@ -42,7 +43,7 @@ class MainActListNoMoreMoviesInstrumentedTest: AutoCloseKoinTest() {
     }
 
     @Test
-    fun showEmptyTextIfReturnNoMoreMoviesExceptionInPage1() {
+    fun showErrorTextIfReturnNoMoreMoviesExceptionInPage1() {
         activityRule.launchActivity(null)
 
         onView(withId(R.id.movies_texterror))
@@ -50,5 +51,12 @@ class MainActListNoMoreMoviesInstrumentedTest: AutoCloseKoinTest() {
 
         onView(withText(R.string.noMoreMovieError))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun doesNotShowLoadingViewOnceErrorAreShown() {
+        activityRule.launchActivity(null)
+
+        onView(withId(R.id.movies_progressbar)).check(matches(CoreMatchers.not(isDisplayed())))
     }
 }

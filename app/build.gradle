@@ -64,10 +64,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.18'
+    testImplementation "io.kotlintest:kotlintest-assertions-arrow:3.3.3"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.0-M2"
 
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     androidTestImplementation ("org.koin:koin-test:$koin_version") { exclude group: "org.mockito" }
 }

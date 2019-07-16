@@ -2,11 +2,14 @@ package com.iliaberlana.movies
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.iliaberlana.movies.data.MovieRepository
+import com.iliaberlana.movies.framework.moviebd.model.toMovie
 import com.iliaberlana.movies.ui.MainActivity
+import com.iliaberlana.movies.ui.model.UIMovie
+import com.iliaberlana.movies.ui.model.toUIMovie
 import com.iliaberlana.movies.ui.presenters.MainPresenter
 import com.iliaberlana.movies.usecases.ListMovies
 import org.hamcrest.CoreMatchers
@@ -19,13 +22,14 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 
+
 @RunWith(AndroidJUnit4::class)
-class MainActListUnknownInstrumentedTest: KoinTest {
+class MainActListInstrumentedTest: KoinTest {
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, true, false)
 
-    var moviesRepository: MovieRepository = MovieRepositoryUnknownStub()
+    var moviesRepository = MovieRepositoryStub()
     val listMovies = ListMovies(moviesRepository)
 
     @Before
@@ -43,14 +47,12 @@ class MainActListUnknownInstrumentedTest: KoinTest {
     }
 
     @Test
-    fun showEmptyTextIfReturnUnknownExceptionInPage1() {
+    fun showRecyclerViewWhenItemsAreOk() {
+        val movies: List<UIMovie> = moviesRepository.jsonToList().map { it.toMovie() }.map { it.toUIMovie() }
+
         activityRule.launchActivity(null)
 
-        onView(withId(R.id.movies_texterror))
-            .check(matches(isDisplayed()))
-
-        onView(withText(R.string.emptyList))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.movies_recyclerview)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -59,4 +61,5 @@ class MainActListUnknownInstrumentedTest: KoinTest {
 
         onView(withId(R.id.movies_progressbar)).check(matches(CoreMatchers.not(isDisplayed())))
     }
+
 }

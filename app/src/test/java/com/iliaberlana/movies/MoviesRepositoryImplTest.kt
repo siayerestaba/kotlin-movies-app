@@ -3,6 +3,7 @@ package com.iliaberlana.movies
 import com.iliaberlana.movies.domain.exception.DomainError
 import com.iliaberlana.movies.framework.MovieRepositoryImpl
 import com.iliaberlana.movies.framework.moviebd.MovieDBClientService
+import io.kotlintest.assertions.arrow.either.shouldBeLeft
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -21,19 +22,29 @@ class MoviesRepositoryImplTest {
         movieRepositoryImpl.listMovies(1)
 
         coVerify {movieDBClientService.getMoviesFromDB(1) }
+    }
+
+    @Test
+    fun `catch the NoInternetConnectionException and return Either with this error`() = runBlocking {
+        coEvery { movieDBClientService.getMoviesFromDB(1) } throws DomainError.NoInternetConnectionException
+
+        val actual = movieRepositoryImpl.listMovies(1)
+
+        actual.shouldBeLeft(DomainError.NoInternetConnectionException)
 
         Unit
     }
 
     @Test
-    fun `catch the NoInternetConnectionException and return Try with this error`() = runBlocking {
-        coEvery { movieDBClientService.getMoviesFromDB(1) } throws DomainError.NoInternetConnectionException
+    fun `return Either with NoMoreMoviesException error when receive a emptyList`() = runBlocking {
+        coEvery { movieDBClientService.getMoviesFromDB(1) } returns emptyList()
 
         val actual = movieRepositoryImpl.listMovies(1)
 
-        Assert.assertTrue(actual.isLeft())
+        actual.shouldBeLeft(DomainError.NoMoreMoviesException)
 
         Unit
     }
+
 
 }
