@@ -15,11 +15,10 @@ class MovieRepositoryImpl(
             val listMoviesDB = movieDBClientService.getMoviesFromDB(page)
 
             if (listMoviesDB.isEmpty()) return Either.left(DomainError.NoMoreMoviesException)
-            return Either.right(listMoviesDB.map { it.toMovie() })
 
+            return Either.right(listMoviesDB.map { it.toMovie() })
         } catch (noInternetConnectionException: DomainError) {
             return Either.left(DomainError.NoInternetConnectionException)
-
         } catch (exception : Exception) {
             return Either.left(DomainError.UnknownException)
         }
